@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <rand.h>
-#include <time.h>
+//#include <time.h>
 
 #include <gb/font.h>
 
@@ -15,6 +15,7 @@
 #include "mapita.c"
 #include "fruta.c"
 #include "frutita2.c"
+#include "windows.c"
 
 const unsigned int blankmap[1]= {0x00};
 
@@ -24,29 +25,13 @@ bool puedomoverme (int i){
   return result;
   }
 
-/*
-  bool collision (int j, int i){
-    bool r = i==j || i==j +1 || i==j-1|| i==j-20|| i ==j-19 || i==j-21|| i ==j+19 || i==j+20 || i==j+21;
-    return r;
-  } 
 
   
-  int randomFruta(int i){
-      int j = 30;
-      while (collision(j,i)){
-      j = (unsigned)rand()%300+1;
-      }
-      printf("%d",j);
-      move_sprite(2,(j%20)*8,(j/20)*8);
-      move_sprite(3,((j%20)*8)+8,(j/20)*8);
-      return j;
-      }
-    */
     
     /***********************************
      * i el personaje
      * j la primer fruta 
-     * r la segunda fruta
+     * s la segunda fruta
     ***********************************/
   
   int randomFruta(int i){
@@ -58,10 +43,8 @@ bool puedomoverme (int i){
       b = (unsigned)rand()%16+1;
       j =((b-2)*20)+a;
       }
-     
       move_sprite(2,a*8,b*8);
       move_sprite(3,(a*8)+8,b*8);
-      
       return j;
       }
 
@@ -94,21 +77,26 @@ void main(void) {
     initarand(l);
     //
     //fuente
-    /*
+    
     font_t min_font;
     font_init();
-    min_font = font_load(font_min);
+    min_font = font_load(font_min); // tile
     font_set(min_font);
 
-    set_win_tiles(0,0);
-    */
+    
+    set_win_tiles(0,0,20,1,windows);
+    move_win(7,130);
+    SHOW_WIN;
     //
         
     SPRITES_8x16;
     set_sprite_data(0,48,Elle);
+
     set_sprite_tile(0,0);
     move_sprite(0,16,32);
+
     set_sprite_tile(1,2);
+
     move_sprite(1,24,32);
     unsigned int i = 42;
 
@@ -119,8 +107,6 @@ void main(void) {
     set_sprite_tile(3,50);
     move_sprite(2,0,0);
     move_sprite(3,0,0);
-    //int j = 86;
-    //int j = 0;
     unsigned int j = randomFruta(i);
 
     SPRITES_8x16;
@@ -129,8 +115,6 @@ void main(void) {
     set_sprite_tile(5,54);
     move_sprite(4,0,0);
     move_sprite(5,0,0);
-    //int j = 86;
-    //int j = 0;
     unsigned int s = randomFruta2(i);
 
 
@@ -149,8 +133,7 @@ void main(void) {
     
     while (1)
     {
-      
-      
+        
 
 
       switch (joypad())
@@ -163,6 +146,23 @@ void main(void) {
       s = randomFruta2(i);
       delay(300);
 
+      if(windows[2]==0x0B){
+          windows[2]=0x02;
+          windows[1]=windows[1]+0x01;
+        }
+        else if (windows[2]!=0x0B) {
+        windows[2]=windows[2] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
+
+        if(windows[12]==0x0B){
+          windows[11]=0x02;
+          windows[12]=windows[1]+0x01;
+        }
+        else if (windows[12]!=0x0B) {
+        windows[12]=windows[12] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
       /*
       delay(400);
       mapita[3]=blankmap[0];
@@ -178,46 +178,121 @@ void main(void) {
       
       if(i+2==j) {
         j = randomFruta(i);
-         
         delay(400);
+        if(windows[2]==0x11){
+          windows[2]=0x02;
+          windows[1]=windows[1]+0x01;
+        }
+        else if (windows[2]!=0x11) {
+        windows[2]=windows[2] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
+
+        
+        
         
       }
       if(i-40==j) {
         j = randomFruta(i);
         //printf("%d",j);   
         delay(400);
+
+        if(windows[2]==0x0B){
+          windows[2]=0x02;
+          windows[1]=windows[1]+0x01;
+        }
+        else if (windows[2]!=0x0B) {
+        windows[2]=windows[2] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
       }
       if(i+-2==j){
         j = randomFruta(i);
        // printf("%d",j);   
         delay(400);
+
+        if(windows[2]==0x0B){
+          windows[2]=0x02;
+          windows[1]=windows[1]+0x01;
+        }
+        else if (windows[2]!=0x0B) {
+        windows[2]=windows[2] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
+        
       }
       if((i+40==j) ){
         j = randomFruta(i);
         //printf("%d",j);   
         delay(400);
+
+        if(windows[2]==0x0B){
+          windows[2]=0x02;
+          windows[1]=windows[1]+0x01;
+        }
+        else if (windows[2]!=0x0B) {
+        windows[2]=windows[2] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
       }
 
       if(i+2==s) {
         s = randomFruta2(i);
-         
         delay(400);
+
+        if(windows[12]==0x0B){
+          windows[11]=0x02;
+          windows[12]=windows[1]+0x01;
+        }
+        else if (windows[12]!=0x0B) {
+        windows[12]=windows[12] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
         
       }
       if(i-40==s) {
         s = randomFruta2(i);
         //printf("%d",j);   
         delay(400);
+
+        if(windows[12]==0x0B){
+          windows[11]=0x02;
+          windows[12]=windows[1]+0x01;
+        }
+        else if (windows[12]!=0x0B) {
+        windows[12]=windows[12] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
       }
+
       if(i+-2==s){
         s = randomFruta2(i);
        // printf("%d",j);   
         delay(400);
+
+        if(windows[12]==0x0B){
+          windows[11]=0x02;
+          windows[12]=windows[1]+0x01;
+        }
+        else if (windows[12]!=0x0B) {
+        windows[12]=windows[12] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
+
       }
       if((i+40==s) ){
         s = randomFruta2(i);
         //printf("%d",j);   
         delay(400);
+
+        if(windows[12]==0x0B){
+          windows[11]=0x02;
+          windows[12]=windows[1]+0x01;
+        }
+        else if (windows[12]!=0x0B) {
+        windows[12]=windows[12] + 0x01;
+        }
+        set_win_tiles(0,0,20,1,windows);
       }
       break;
 
