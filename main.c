@@ -9,9 +9,8 @@
 #include <gb/font.h>
 
 
-
+#include "GameCharacter.c"
 #include "elle.c"
-
 #include "back.c"
 
 #include "backmap.c"
@@ -27,7 +26,40 @@ bool puedomoverme (int i){
   return result;
   }
 
+    /***********************************
+     * Funciones de personaje y su movimiento
+    ***********************************/
+  /*struct GameCharacter elle;
 
+  uint8_t spritesize = 8;
+  
+
+  void movegamecharacter(struct GameCharacter* character, uint8_t x, uint8_t y){
+    move_sprite(character->spritids[0], x, y);
+    move_sprite(character->spritids[1], x + 3*spritesize, y+80);
+    //move_sprite(character->spritids[2], x, y + spritesize);
+    //move_sprite(character->spritids[3], x + spritesize, y + spritesize);
+  }
+
+  void setupChar(){
+    elle.x = 16;
+    elle.y = 32;
+    elle.width = 16;
+    elle.height = 16;
+
+    // load sprites for ship
+    set_sprite_tile(0, 0);
+    elle.spritids[0] = 0;
+    set_sprite_tile(1, 2);
+    elle.spritids[1] = 2;
+    /*set_sprite_tile(2, 2);
+    elle.spritids[2] = 2;
+    set_sprite_tile(3, 3);
+    elle.spritids[3] = 3;
+    
+
+    movegamecharacter(&elle, elle.x, elle.y);
+}*/
   
     
     /***********************************
@@ -135,9 +167,10 @@ void main(void) {
     set_win_tiles(0,0,20,2,windows);
     move_win(7,128);
     
-           
     SPRITES_8x16;
+    
     set_sprite_data(0,48,Elle);
+    //setupChar();
     set_sprite_tile(0,0);
     move_sprite(0,16,32);
     set_sprite_tile(1,2);
@@ -145,7 +178,7 @@ void main(void) {
     unsigned int i = 42;
 
 
-    SPRITES_8x16;
+    
     set_sprite_data(48,16,fruta);
     set_sprite_tile(2,48);
     set_sprite_tile(3,50);
