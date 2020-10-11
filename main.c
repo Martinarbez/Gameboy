@@ -32,39 +32,24 @@ bool puedomoverme (int i){
     
     /***********************************
      * i el personaje
-     * j la primer fruta 
-     * s la segunda fruta
+     * Fruta 1: Uva posicion j
+     * Fruta 2; Limon posicion s
     ***********************************/
-  
-  int randomFruta(int i){
-      int j = 0;
+    //randomFruta(posicion del personaje, numero de fruta a mover) 
+   int randomFruta(int i, int f){
+      int r = 0;
       int a = 0;
       int b = 0;
-      while ( !puedomoverme(j) || !puedomoverme(j+21) || !puedomoverme(j+20) || !puedomoverme(j+1) || i==j || i==j +1 || i==j-1|| i==j-20|| i ==j-19 || i==j-21|| i ==j+19 || i==j+20 || i==j+21){
+      while ( !puedomoverme(r) || !puedomoverme(r+21) || !puedomoverme(r+20) || !puedomoverme(r+1) || r==i || i==r +1 || i==r-1|| i==r-20|| i ==r-19 || i==r-21|| i ==r+19 || i==r+20 || i==r+21){
       a = (unsigned)rand()%18+1;
       b = (unsigned)rand()%16+1;
-      j =((b-2)*20)+a;
+      r =((b-2)*20)+a;
       }
-      move_sprite(2,a*8,b*8);
-      move_sprite(3,(a*8)+8,b*8);
-      return j;
+      move_sprite(f*2,a*8,b*8);
+      move_sprite((f*2)+1,(a*8)+8,b*8);
+      return r;
       }
-
-  int randomFruta2(int i){
-      int s = 0;
-      int a = 0;
-      int b = 0;
-      while ( !puedomoverme(s) || !puedomoverme(s+21) || !puedomoverme(s+20) || !puedomoverme(s+1) || i==s || i==s +1 || i==s-1|| i==s-20|| i ==s-19 || i==s-21|| i ==s+19 || i==s+20 || i==s+21){
-      a = (unsigned)rand()%18+1;
-      b = (unsigned)rand()%16+1;
-      s =((b-2)*20)+a;
-      }
-     
-      move_sprite(4,a*8,b*8);
-      move_sprite(5,(a*8)+8,b*8);
-      
-      return s;
-      }
+ 
     
     void contadorUvas(void){
     if(windows[8]==0x0B){
@@ -139,11 +124,11 @@ void main(void) {
     move_sprite(3,0,0);
     move_sprite(4,0,0);
     move_sprite(5,0,0);
-    unsigned int j = randomFruta(i);
+    unsigned int j = randomFruta(i,1);
 
       
     
-    unsigned int s = randomFruta2(i);
+    unsigned int s = randomFruta(i,2);
 
 
 
@@ -166,93 +151,34 @@ void main(void) {
 
       switch (joypad())
       {
-          /*
+          
       case J_B:
        
-      j = randomFruta(i);
+      j = randomFruta(i,1);
+      contadorUvas();
       delay(300);
-      s = randomFruta2(i);
+
+      s = randomFruta(i,2);
+      contadorLimon();
       delay(300);
-
-      if(windows[8]==0x0B){
-          windows[8]=0x02;
-          windows[7]=windows[7]+0x01;
-        }
-        else if (windows[8]!=0x0B) {
-        windows[8]=windows[8] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
-
-        if(windows[28]==0x0B){
-          windows[28]=0x02;
-          windows[27]=windows[27]+0x01;
-        }
-        else if (windows[28]!=0x0B) {
-        windows[28]=windows[28] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
-
-        */
-      /*
-      delay(400);
-      mapita[3]=blankmap[0];
-      set_bkg_tiles(0,0,20,18,mapita);
-      delay(100);
-      if (mapita[3]==blankmap[0]){
-        mapita[3]=mapita[2];
-        set_bkg_tiles(0,0,20,18,mapita);
-      }*/
 
       
       case J_A:  
       
-      if(i+2==j) {
-        j = randomFruta(i);
+      if(i+2==j || i-40==j || i-2==j || i+40==j) {
+        j = randomFruta(i,1);
         contadorUvas();
         delay(400);        
       }
 
-      if(i-40==j) {
-        j = randomFruta(i);
-        contadorUvas();
-        delay(400);
-      }
 
-      if(i+-2==j){
-        j = randomFruta(i);
-        contadorUvas();
-        delay(400);        
-      }
-
-      if((i+40==j) ){
-        j = randomFruta(i);
-        contadorUvas();
-        delay(400);
-      }
-
-      if(i+2==s) {
-        s = randomFruta2(i);
+      if(i+2==s || i-40==s || i-2==s || i+40==s) {
+        s = randomFruta(i,2);
         contadorLimon();
         delay(400);
         
       }
-      if(i-40==s) {
-        s = randomFruta2(i);
-        contadorLimon();
-        delay(400);
-      }
-
-      if(i+-2==s){
-        s = randomFruta2(i);
-        contadorLimon();
-        delay(400);
-
-      }
-      if((i+40==s) ){
-        s = randomFruta2(i);
-        contadorLimon();
-        delay(400);
-      }
+     
       break;
 
       case J_RIGHT:
