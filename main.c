@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <rand.h>
-//#include <time.h>
+#include <time.h>
 
 #include <gb/font.h>
 
@@ -74,37 +74,40 @@ bool puedomoverme (int i){
     }
 
 void main(void) {
-    //srand((unsigned) time(NULL));
+    
     //Personaje
     //puts("\n\n\n\n\nDale start perro!!!");
+
+    //cargar fuente
     font_t min_font;
     font_init();
     min_font = font_load(font_min); // tile
     font_set(min_font);
 
 
-
+    //Pantalla para de inicio
     set_win_tiles(0,0,20,18,startwindows);
     move_win(7,0);
     SHOW_WIN;
     DISPLAY_ON;
-
     delay(1000);
 
+
+    //espera una tecla y incia random
+    
     waitpad(0xFF);
     waitpadup();
     int l = DIV_REG;
     initarand(l);
-    //
-    //fuente
     
     
     
+    
+    //cargar el primer nivel
     set_win_tiles(0,0,20,2,windows);
     move_win(7,128);
     
-    //
-        
+           
     SPRITES_8x16;
     set_sprite_data(0,48,Elle);
     set_sprite_tile(0,0);
@@ -115,7 +118,7 @@ void main(void) {
 
 
     SPRITES_8x16;
-    set_sprite_data(48,56,fruta);
+    set_sprite_data(48,8,fruta);
     set_sprite_tile(2,48);
     set_sprite_tile(3,50);
     set_sprite_tile(4,52);
@@ -124,21 +127,15 @@ void main(void) {
     move_sprite(3,0,0);
     move_sprite(4,0,0);
     move_sprite(5,0,0);
-    unsigned int j = randomFruta(i,1);
-
-      
-    
+    unsigned int j = randomFruta(i,1);    
     unsigned int s = randomFruta(i,2);
-
-
-
-    SHOW_SPRITES;
     
     
     //mapa
     set_bkg_data(38,6,back);  //tile, cantidad de tildes,donde estan//
     set_bkg_tiles(0,0,20,18,backmap);
 
+    SHOW_SPRITES;
     SHOW_BKG;
     DISPLAY_ON;
 
@@ -147,7 +144,6 @@ void main(void) {
     while (1)
     {
         
-
 
       switch (joypad())
       {
