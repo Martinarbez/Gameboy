@@ -73,6 +73,29 @@ bool puedomoverme (int i){
         set_win_tiles(0,0,20,2,windows);
     }
 
+    void contadorKiwi(void){
+     if(windows[18]==0x0B){
+          windows[18]=0x02;
+          windows[17]=windows[17]+0x01;
+        }
+        else if (windows[18]!=0x0B) {
+        windows[18]=windows[18] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
+
+void contadorPera(void){
+     if(windows[38]==0x0B){
+          windows[38]=0x02;
+          windows[37]=windows[37]+0x01;
+        }
+        else if (windows[38]!=0x0B) {
+        windows[38]=windows[38] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
+
+
 void main(void) {
 
     // Cambio registros para activar sonido
@@ -123,17 +146,27 @@ void main(void) {
 
 
     SPRITES_8x16;
-    set_sprite_data(48,8,fruta);
+    set_sprite_data(48,16,fruta);
     set_sprite_tile(2,48);
     set_sprite_tile(3,50);
     set_sprite_tile(4,52);
     set_sprite_tile(5,54);
+    set_sprite_tile(6,56);
+    set_sprite_tile(7,58);
+    set_sprite_tile(8,60);
+    set_sprite_tile(9,62);
     move_sprite(2,0,0);
     move_sprite(3,0,0);
     move_sprite(4,0,0);
     move_sprite(5,0,0);
+    move_sprite(6,0,0);
+    move_sprite(7,0,0);
+    move_sprite(8,0,0);
+    move_sprite(9,0,0);
     unsigned int j = randomFruta(i,1);    
     unsigned int s = randomFruta(i,2);
+    unsigned int r = randomFruta(i,3);    
+    unsigned int m = randomFruta(i,4);
     
     
     //mapa
@@ -163,6 +196,14 @@ void main(void) {
       contadorLimon();
       delay(300);
 
+      r = randomFruta(i,3);
+      contadorKiwi();
+      delay(300);
+
+      m = randomFruta(i,4);
+      contadorPera();
+      delay(300);
+
       
       case J_A:  
       
@@ -189,20 +230,38 @@ void main(void) {
         delay(400);
         
       }
-     
+      if(i+2==r || i-40==r || i-2==r || i+40==r) {
+        r = randomFruta(i,3);
+        contadorKiwi();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x01;
+        NR14_REG = 0xC6; 
+        delay(400);
+        
+      }
+
+      if(i+2==m || i-40==m || i-2==m || i+40==m) {
+        m = randomFruta(i,4);
+        contadorPera();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x04;
+        NR14_REG = 0xC7; 
+        delay(400);        
+      }
+
       break;
 
       case J_RIGHT:
 
         set_sprite_tile(0,4);
         set_sprite_tile(1,6);
-        NR10_REG = 0x16;
-        NR11_REG = 0x72;
-        NR12_REG = 0x73;
-        NR13_REG = 0x08;
-        NR14_REG = 0xC2; 
        
-        if(puedomoverme(i+2) && puedomoverme(i+22) && ( (i+2)!=j && (i+22)!=j && (i-18)!=j)  && ( (i+2)!=s && (i+22)!=s && (i-18)!=s) ){
+       
+        if(puedomoverme(i+2) && puedomoverme(i+22) && ( (i+2)!=j && (i+22)!=j && (i-18)!=j)  && ( (i+2)!=s && (i+22)!=s && (i-18)!=s) && ( (i+2)!=r && (i+22)!=r && (i-18)!=r)&& ( (i+2)!=m && (i+22)!=m && (i-18)!=m)){
         set_sprite_tile(0,20);
         set_sprite_tile(1,22); 
         delay(80);
@@ -233,12 +292,8 @@ void main(void) {
       case J_UP:
         set_sprite_tile(0,12);
         set_sprite_tile(1,14);
-        NR10_REG = 0x16;
-        NR11_REG = 0x72;
-        NR12_REG = 0x73;
-        NR13_REG = 0x08;
-        NR14_REG = 0xC2;  
-        if(puedomoverme(i-20)&&puedomoverme(i-19) && (i-40!=j) && (i-41!=j) && (i-39!=j) && (i-40!=s) && (i-41!=s) && (i-39!=s)){
+        
+        if(puedomoverme(i-20)&&puedomoverme(i-19) && (i-40!=j) && (i-41!=j) && (i-39!=j) && (i-40!=s) && (i-41!=s) && (i-39!=s)&& (i-40!=r) && (i-41!=r) && (i-39!=r)&& (i-40!=m) && (i-41!=m) && (i-39!=m)){
         set_sprite_tile(0,24);
         set_sprite_tile(1,26); 
         delay(80);
@@ -269,12 +324,8 @@ void main(void) {
       case J_LEFT:
         set_sprite_tile(0,8);
         set_sprite_tile(1,10);
-        NR10_REG = 0x16;
-        NR11_REG = 0x72;
-        NR12_REG = 0x73;
-        NR13_REG = 0x08;
-        NR14_REG = 0xC2; 
-        if(puedomoverme(i-1)&&puedomoverme(i+19) && (i-2!=j) && (i-22!=j) && (i+18!=j)&& (i-2!=s) && (i-22!=s) && (i+18!=s)){
+        
+        if(puedomoverme(i-1)&&puedomoverme(i+19) && (i-2!=j) && (i-22!=j) && (i+18!=j)&& (i-2!=s) && (i-22!=s) && (i+18!=s)&& (i-2!=r) && (i-22!=r) && (i+18!=r)&& (i-2!=m) && (i-22!=m) && (i+18!=m)){
         set_sprite_tile(0,28);
         set_sprite_tile(1,30); 
         delay(80); 
@@ -305,12 +356,8 @@ void main(void) {
       case J_DOWN:
         set_sprite_tile(0,0);
         set_sprite_tile(1,2);
-        NR10_REG = 0x16;
-        NR11_REG = 0x72;
-        NR12_REG = 0x73;
-        NR13_REG = 0x08;
-        NR14_REG = 0xC2; 
-        if(puedomoverme(i+40)&&puedomoverme(i+41) && (i+41!=j) && (i+40!=j) && (i+39!=j)&&(i+41!=s) && (i+40!=s) && (i+39!=s)){
+        
+        if(puedomoverme(i+40)&&puedomoverme(i+41) && (i+41!=j) && (i+40!=j) && (i+39!=j)&&(i+41!=s) && (i+40!=s) && (i+39!=s)&&(i+41!=r) && (i+40!=r) && (i+39!=r)&&(i+41!=m) && (i+40!=m) && (i+39!=m)){
         set_sprite_tile(0,16);
         set_sprite_tile(1,18);
         delay(80);
