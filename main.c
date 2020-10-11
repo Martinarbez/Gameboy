@@ -74,6 +74,11 @@ bool puedomoverme (int i){
     }
 
 void main(void) {
+
+    // Cambio registros para activar sonido
+    NR52_REG = 0x80; 
+    NR50_REG = 0x77; 
+    NR51_REG = 0xFF;
     
     //Personaje
     //puts("\n\n\n\n\nDale start perro!!!");
@@ -164,6 +169,11 @@ void main(void) {
       if(i+2==j || i-40==j || i-2==j || i+40==j) {
         j = randomFruta(i,1);
         contadorUvas();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x04;
+        NR14_REG = 0xC7; 
         delay(400);        
       }
 
@@ -171,6 +181,11 @@ void main(void) {
       if(i+2==s || i-40==s || i-2==s || i+40==s) {
         s = randomFruta(i,2);
         contadorLimon();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x01;
+        NR14_REG = 0xC6; 
         delay(400);
         
       }
@@ -181,6 +196,11 @@ void main(void) {
 
         set_sprite_tile(0,4);
         set_sprite_tile(1,6);
+        NR10_REG = 0x16;
+        NR11_REG = 0x72;
+        NR12_REG = 0x73;
+        NR13_REG = 0x08;
+        NR14_REG = 0xC2; 
        
         if(puedomoverme(i+2) && puedomoverme(i+22) && ( (i+2)!=j && (i+22)!=j && (i-18)!=j)  && ( (i+2)!=s && (i+22)!=s && (i-18)!=s) ){
         set_sprite_tile(0,20);
@@ -212,7 +232,12 @@ void main(void) {
       
       case J_UP:
         set_sprite_tile(0,12);
-        set_sprite_tile(1,14); 
+        set_sprite_tile(1,14);
+        NR10_REG = 0x16;
+        NR11_REG = 0x72;
+        NR12_REG = 0x73;
+        NR13_REG = 0x08;
+        NR14_REG = 0xC2;  
         if(puedomoverme(i-20)&&puedomoverme(i-19) && (i-40!=j) && (i-41!=j) && (i-39!=j) && (i-40!=s) && (i-41!=s) && (i-39!=s)){
         set_sprite_tile(0,24);
         set_sprite_tile(1,26); 
@@ -244,6 +269,11 @@ void main(void) {
       case J_LEFT:
         set_sprite_tile(0,8);
         set_sprite_tile(1,10);
+        NR10_REG = 0x16;
+        NR11_REG = 0x72;
+        NR12_REG = 0x73;
+        NR13_REG = 0x08;
+        NR14_REG = 0xC2; 
         if(puedomoverme(i-1)&&puedomoverme(i+19) && (i-2!=j) && (i-22!=j) && (i+18!=j)&& (i-2!=s) && (i-22!=s) && (i+18!=s)){
         set_sprite_tile(0,28);
         set_sprite_tile(1,30); 
@@ -275,6 +305,11 @@ void main(void) {
       case J_DOWN:
         set_sprite_tile(0,0);
         set_sprite_tile(1,2);
+        NR10_REG = 0x16;
+        NR11_REG = 0x72;
+        NR12_REG = 0x73;
+        NR13_REG = 0x08;
+        NR14_REG = 0xC2; 
         if(puedomoverme(i+40)&&puedomoverme(i+41) && (i+41!=j) && (i+40!=j) && (i+39!=j)&&(i+41!=s) && (i+40!=s) && (i+39!=s)){
         set_sprite_tile(0,16);
         set_sprite_tile(1,18);
