@@ -66,7 +66,27 @@ bool puedomoverme (int i){
       return s;
       }
     
+    void contadorUvas(void){
+    if(windows[8]==0x0B){
+          windows[8]=0x02;
+          windows[7]=windows[7]+0x01;
+        }
+        else if (windows[8]!=0x0B) {
+        windows[8]=windows[8] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
          
+    void contadorLimon(void){
+     if(windows[28]==0x0B){
+          windows[28]=0x02;
+          windows[27]=windows[27]+0x01;
+        }
+        else if (windows[28]!=0x0B) {
+        windows[28]=windows[28] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
 
 void main(void) {
     //srand((unsigned) time(NULL));
@@ -84,7 +104,7 @@ void main(void) {
     SHOW_WIN;
     DISPLAY_ON;
 
-    delay(2000);
+    delay(1000);
 
     waitpad(0xFF);
     waitpadup();
@@ -146,7 +166,7 @@ void main(void) {
 
       switch (joypad())
       {
-
+          /*
       case J_B:
        
       j = randomFruta(i);
@@ -171,6 +191,8 @@ void main(void) {
         windows[28]=windows[28] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
+
+        */
       /*
       delay(400);
       mapita[3]=blankmap[0];
@@ -186,120 +208,50 @@ void main(void) {
       
       if(i+2==j) {
         j = randomFruta(i);
-        delay(400);
-        if(windows[8]==0x0B){
-          windows[8]=0x02;
-          windows[7]=windows[7]+0x01;
-        }
-        else if (windows[8]!=0x0B) {
-        windows[8]=windows[8] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
-        
-        
-        
+        contadorUvas();
+        delay(400);        
       }
+
       if(i-40==j) {
         j = randomFruta(i);
-        //printf("%d",j);   
+        contadorUvas();
         delay(400);
-
-       if(windows[8]==0x0B){
-          windows[8]=0x02;
-          windows[7]=windows[7]+0x01;
-        }
-        else if (windows[8]!=0x0B) {
-        windows[8]=windows[8] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
       }
+
       if(i+-2==j){
         j = randomFruta(i);
-       // printf("%d",j);   
-        delay(400);
-
-      if(windows[8]==0x0B){
-          windows[8]=0x02;
-          windows[7]=windows[7]+0x01;
-        }
-        else if (windows[8]!=0x0B) {
-        windows[8]=windows[8] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
-        
+        contadorUvas();
+        delay(400);        
       }
+
       if((i+40==j) ){
         j = randomFruta(i);
-        //printf("%d",j);   
+        contadorUvas();
         delay(400);
-
-        if(windows[8]==0x0B){
-          windows[8]=0x02;
-          windows[7]=windows[7]+0x01;
-        }
-        else if (windows[8]!=0x0B) {
-        windows[8]=windows[8] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
       }
 
       if(i+2==s) {
         s = randomFruta2(i);
+        contadorLimon();
         delay(400);
-
-        if(windows[28]==0x0B){
-          windows[28]=0x02;
-          windows[27]=windows[27]+0x01;
-        }
-        else if (windows[28]!=0x0B) {
-        windows[28]=windows[28] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
         
       }
       if(i-40==s) {
         s = randomFruta2(i);
-        //printf("%d",j);   
+        contadorLimon();
         delay(400);
-
-      if(windows[28]==0x0B){
-          windows[28]=0x02;
-          windows[27]=windows[27]+0x01;
-        }
-        else if (windows[28]!=0x0B) {
-        windows[28]=windows[28] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
       }
 
       if(i+-2==s){
         s = randomFruta2(i);
-       // printf("%d",j);   
+        contadorLimon();
         delay(400);
-
-       if(windows[28]==0x0B){
-          windows[28]=0x02;
-          windows[27]=windows[27]+0x01;
-        }
-        else if (windows[28]!=0x0B) {
-        windows[28]=windows[28] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
 
       }
       if((i+40==s) ){
         s = randomFruta2(i);
-        //printf("%d",j);   
+        contadorLimon();
         delay(400);
-
-        if(windows[28]==0x0B){
-          windows[28]=0x02;
-          windows[27]=windows[27]+0x01;
-        }
-        else if (windows[28]!=0x0B) {
-        windows[28]=windows[28] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
       }
       break;
 
