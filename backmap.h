@@ -1,6 +1,6 @@
 /*
 
- MAPITA.H
+ BACKMAP.H
 
  Map Include File.
 
@@ -8,7 +8,7 @@
    Section       : 
    Bank          : 0
    Map size      : 20 x 18
-   Tile set      : Z:\home\martin\Desktop\Gameboy\Game\piedra.gbr
+   Tile set      : Z:\home\martin\Desktop\Gameboy\Game\Gameboy\back.gbr
    Plane count   : 1 plane (8 bits)
    Plane order   : Tiles are continues
    Tile offset   : 0
@@ -18,10 +18,10 @@
 
 */
 
-#define mapitaWidth 20
-#define mapitaHeight 18
-#define mapitaBank 0
+#define backmapWidth 20
+#define backmapHeight 18
+#define backmapBank 0
 
-extern unsigned char mapita[];
+extern unsigned char backmap[];
 
-/* End of MAPITA.H */
+/* End of BACKMAP.H */

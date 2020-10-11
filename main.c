@@ -11,8 +11,10 @@
 
 
 #include "elle.c"
-#include "piedrita.c"
-#include "mapita.c"
+//#include "piedrita.c"
+#include "back.c"
+//#include "mapita.c"
+#include "backmap.c"
 #include "fruta.c"
 #include "windows.c"
 
@@ -20,7 +22,7 @@ const unsigned int blankmap[1]= {0x00};
 
 
 bool puedomoverme (int i){
-  bool result = (mapita[i-1] == blankmap[0]);
+  bool result = (backmap[i-1] == blankmap[0]);
   return result;
   }
 
@@ -90,12 +92,9 @@ void main(void) {
         
     SPRITES_8x16;
     set_sprite_data(0,48,Elle);
-
     set_sprite_tile(0,0);
     move_sprite(0,16,32);
-
     set_sprite_tile(1,2);
-
     move_sprite(1,24,32);
     unsigned int i = 42;
 
@@ -122,8 +121,8 @@ void main(void) {
     
     
     //mapa
-    set_bkg_data(0,2,piedrita);  //tile, cantidad de tildes,donde estan//
-    set_bkg_tiles(0,0,20,18,mapita);
+    set_bkg_data(36,6,back);  //tile, cantidad de tildes,donde estan//
+    set_bkg_tiles(0,0,20,18,backmap);
 
     SHOW_BKG;
     DISPLAY_ON;

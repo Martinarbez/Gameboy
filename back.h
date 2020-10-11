@@ -1,6 +1,6 @@
 /*
 
- PRIDITA.H
+ BACK.H
 
  Include File.
 
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 1
+  Tiles                : 0 to 5
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -24,8 +24,8 @@
 
 
 /* Bank of tiles. */
-#define piedritaBank 0
+#define backBank 0
 /* Start of tile array. */
-extern unsigned char piedrita[];
+extern unsigned char back[];
 
-/* End of PRIDITA.H */
+/* End of BACK.H */
