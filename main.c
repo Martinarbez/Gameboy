@@ -11,12 +11,13 @@
 
 
 #include "elle.c"
-//#include "piedrita.c"
+
 #include "back.c"
-//#include "mapita.c"
+
 #include "backmap.c"
 #include "fruta.c"
 #include "windows.c"
+#include "startwindows.c"
 
 const unsigned int blankmap[1]= {0x00};
 
@@ -71,6 +72,19 @@ void main(void) {
     //srand((unsigned) time(NULL));
     //Personaje
     //puts("\n\n\n\n\nDale start perro!!!");
+    font_t min_font;
+    font_init();
+    min_font = font_load(font_min); // tile
+    font_set(min_font);
+
+
+
+    set_win_tiles(0,0,20,18,startwindows);
+    move_win(7,0);
+    SHOW_WIN;
+    DISPLAY_ON;
+
+    delay(2000);
 
     waitpad(0xFF);
     waitpadup();
@@ -79,15 +93,11 @@ void main(void) {
     //
     //fuente
     
-    font_t min_font;
-    font_init();
-    min_font = font_load(font_min); // tile
-    font_set(min_font);
-
+    
     
     set_win_tiles(0,0,20,2,windows);
     move_win(7,128);
-    SHOW_WIN;
+    
     //
         
     SPRITES_8x16;
@@ -121,7 +131,7 @@ void main(void) {
     
     
     //mapa
-    set_bkg_data(36,6,back);  //tile, cantidad de tildes,donde estan//
+    set_bkg_data(38,6,back);  //tile, cantidad de tildes,donde estan//
     set_bkg_tiles(0,0,20,18,backmap);
 
     SHOW_BKG;
@@ -144,12 +154,12 @@ void main(void) {
       s = randomFruta2(i);
       delay(300);
 
-      if(windows[11]==0x0B){
-          windows[11]=0x02;
-          windows[10]=windows[10]+0x01;
+      if(windows[8]==0x0B){
+          windows[8]=0x02;
+          windows[7]=windows[7]+0x01;
         }
-        else if (windows[11]!=0x0B) {
-        windows[11]=windows[11] + 0x01;
+        else if (windows[8]!=0x0B) {
+        windows[8]=windows[8] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
 
@@ -177,12 +187,12 @@ void main(void) {
       if(i+2==j) {
         j = randomFruta(i);
         delay(400);
-        if(windows[11]==0x0B){
-          windows[11]=0x02;
-          windows[10]=windows[10]+0x01;
+        if(windows[8]==0x0B){
+          windows[8]=0x02;
+          windows[7]=windows[7]+0x01;
         }
-        else if (windows[11]!=0x0B) {
-        windows[11]=windows[11] + 0x01;
+        else if (windows[8]!=0x0B) {
+        windows[8]=windows[8] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
         
@@ -194,12 +204,12 @@ void main(void) {
         //printf("%d",j);   
         delay(400);
 
-       if(windows[11]==0x0B){
-          windows[11]=0x02;
-          windows[10]=windows[10]+0x01;
+       if(windows[8]==0x0B){
+          windows[8]=0x02;
+          windows[7]=windows[7]+0x01;
         }
-        else if (windows[11]!=0x0B) {
-        windows[11]=windows[11] + 0x01;
+        else if (windows[8]!=0x0B) {
+        windows[8]=windows[8] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
       }
@@ -208,12 +218,12 @@ void main(void) {
        // printf("%d",j);   
         delay(400);
 
-        if(windows[11]==0x0B){
-          windows[11]=0x02;
-          windows[10]=windows[10]+0x01;
+      if(windows[8]==0x0B){
+          windows[8]=0x02;
+          windows[7]=windows[7]+0x01;
         }
-        else if (windows[11]!=0x0B) {
-        windows[11]=windows[11] + 0x01;
+        else if (windows[8]!=0x0B) {
+        windows[8]=windows[8] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
         
@@ -223,12 +233,12 @@ void main(void) {
         //printf("%d",j);   
         delay(400);
 
-        if(windows[11]==0x0B){
-          windows[11]=0x02;
-          windows[10]=windows[10]+0x01;
+        if(windows[8]==0x0B){
+          windows[8]=0x02;
+          windows[7]=windows[7]+0x01;
         }
-        else if (windows[11]!=0x0B) {
-        windows[11]=windows[11] + 0x01;
+        else if (windows[8]!=0x0B) {
+        windows[8]=windows[8] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
       }
