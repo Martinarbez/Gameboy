@@ -73,7 +73,29 @@ bool puedomoverme (int i){
  
     
     void contadorUvas(void){
-    if(windows[8]==0x0B){
+    if(windows[3]==0x0B){
+          windows[3]=0x02;
+          windows[2]=windows[2]+0x01;
+        }
+        else if (windows[3]!=0x0B) {
+        windows[3]=windows[3] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
+         
+    void contadorLimon(void){
+     if(windows[23]==0x0B){
+          windows[23]=0x02;
+          windows[22]=windows[22]+0x01;
+        }
+        else if (windows[23]!=0x0B) {
+        windows[23]=windows[23] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
+
+    void contadorKiwi(void){
+     if(windows[8]==0x0B){
           windows[8]=0x02;
           windows[7]=windows[7]+0x01;
         }
@@ -82,36 +104,14 @@ bool puedomoverme (int i){
         }
         set_win_tiles(0,0,20,2,windows);
     }
-         
-    void contadorLimon(void){
+
+void contadorPera(void){
      if(windows[28]==0x0B){
           windows[28]=0x02;
           windows[27]=windows[27]+0x01;
         }
         else if (windows[28]!=0x0B) {
         windows[28]=windows[28] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
-    }
-
-    void contadorKiwi(void){
-     if(windows[18]==0x0B){
-          windows[18]=0x02;
-          windows[17]=windows[17]+0x01;
-        }
-        else if (windows[18]!=0x0B) {
-        windows[18]=windows[18] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
-    }
-
-void contadorPera(void){
-     if(windows[38]==0x0B){
-          windows[38]=0x02;
-          windows[37]=windows[37]+0x01;
-        }
-        else if (windows[38]!=0x0B) {
-        windows[38]=windows[38] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
     }
@@ -154,7 +154,7 @@ void main(void) {
     
     //cargar el primer nivel
     set_win_tiles(0,0,20,2,windows);
-    move_win(7,128);
+    move_win(8,128);
     
     SPRITES_8x16;
     
@@ -189,7 +189,7 @@ void main(void) {
     
     
     //mapa
-    set_bkg_data(38,6,back);  //tile, cantidad de tildes,donde estan//
+    set_bkg_data(38,10,back);  //tile, cantidad de tildes,donde estan//
     set_bkg_tiles(0,0,20,18,backmap);
 
     SHOW_SPRITES;
@@ -200,8 +200,7 @@ void main(void) {
     
     while (1)
     {
-        
-
+      
       switch (joypad())
       {
           
@@ -222,7 +221,7 @@ void main(void) {
       m = randomFruta(i,4);
       contadorPera();
       delay(300);
-
+      
       
       case J_A:  
       
@@ -275,7 +274,7 @@ void main(void) {
       break;
 
       case J_RIGHT:
-
+        
         set_sprite_tile(0,4);
         set_sprite_tile(1,6);
        
@@ -339,7 +338,7 @@ void main(void) {
         i = i-20;
         }
       break;
-
+      
       case J_LEFT:
         set_sprite_tile(0,8);
         set_sprite_tile(1,10);
@@ -401,12 +400,15 @@ void main(void) {
         scroll_sprite(0,0,2);  
         scroll_sprite(1,0,2);
         i = i + 20;
+        
         }
       break;
       }
       
+    
       
-
     }
+    
+
 }
 
