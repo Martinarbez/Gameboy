@@ -116,6 +116,16 @@ void contadorPera(void){
         set_win_tiles(0,0,20,2,windows);
     }
 
+void contadorTiempo(void){
+     if(windows[38]==0x0B){
+          windows[38]=0x02;
+          windows[37]=windows[37]+0x01;
+        }
+        else if (windows[38]!=0x0B) {
+        windows[38]=windows[38] + 0x01;
+        }
+        set_win_tiles(0,0,20,2,windows);
+    }
 
 void main(void) {
 
@@ -197,10 +207,20 @@ void main(void) {
     DISPLAY_ON;
 
     
-    
+    time_t tiempo1 = time(NULL);
+    time_t tiempo2;
+    time_t diff;
+
     while (1)
     {
-      
+      tiempo2 = time(NULL);
+      diff = tiempo2-tiempo1;
+      if (diff > 0.1)
+      {
+        contadorTiempo();
+        tiempo1 = time(NULL);
+      }
+
       switch (joypad())
       {
           
