@@ -117,12 +117,12 @@ void contadorPera(void){
     }
 
 void contadorTiempo(void){
-     if(windows[38]==0x0B){
-          windows[38]=0x02;
-          windows[37]=windows[37]+0x01;
+     if(windows[39]==0x0B){
+          windows[39]=0x02;
+          windows[38]=windows[38]+0x01;
         }
-        else if (windows[38]!=0x0B) {
-        windows[38]=windows[38] + 0x01;
+        else if (windows[39]!=0x0B) {
+        windows[39]=windows[39] + 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
     }
@@ -228,19 +228,19 @@ void main(void) {
        
       j = randomFruta(i,1);
       contadorUvas();
-      delay(300);
+      //delay(300);
 
       s = randomFruta(i,2);
       contadorLimon();
-      delay(300);
+      //delay(300);
 
       r = randomFruta(i,3);
       contadorKiwi();
-      delay(300);
+      //delay(300);
 
       m = randomFruta(i,4);
       contadorPera();
-      delay(300);
+      //delay(300);
       
       
       case J_A:  
@@ -253,7 +253,7 @@ void main(void) {
         NR12_REG = 0x73;
         NR13_REG = 0x04;
         NR14_REG = 0xC7; 
-        delay(400);        
+        //delay(400);        
       }
 
 
@@ -265,7 +265,7 @@ void main(void) {
         NR12_REG = 0x73;
         NR13_REG = 0x01;
         NR14_REG = 0xC6; 
-        delay(400);
+        //delay(400);
         
       }
       if(i+2==r || i-40==r || i-2==r || i+40==r) {
@@ -276,7 +276,7 @@ void main(void) {
         NR12_REG = 0x73;
         NR13_REG = 0x01;
         NR14_REG = 0xC6; 
-        delay(400);
+        //delay(400);
         
       }
 
@@ -288,7 +288,7 @@ void main(void) {
         NR12_REG = 0x73;
         NR13_REG = 0x04;
         NR14_REG = 0xC7; 
-        delay(400);        
+        //delay(400);        
       }
 
       break;
@@ -302,25 +302,25 @@ void main(void) {
         if(puedomoverme(i+2) && puedomoverme(i+22) && ( (i+2)!=j && (i+22)!=j && (i-18)!=j)  && ( (i+2)!=s && (i+22)!=s && (i-18)!=s) && ( (i+2)!=r && (i+22)!=r && (i-18)!=r)&& ( (i+2)!=m && (i+22)!=m && (i-18)!=m)){
         set_sprite_tile(0,20);
         set_sprite_tile(1,22); 
-        delay(80);
+        delay(60);
         scroll_sprite(0,2,0);  
         scroll_sprite(1,2,0);
 
         set_sprite_tile(0,4);
         set_sprite_tile(1,6);
-        delay(80);
+        delay(60);
         scroll_sprite(0,2,0);  
         scroll_sprite(1,2,0);
 
         set_sprite_tile(0,36);
         set_sprite_tile(1,38); 
-        delay(80); 
+        delay(60); 
         scroll_sprite(0,2,0);  
         scroll_sprite(1,2,0);
 
         set_sprite_tile(0,4);
         set_sprite_tile(1,6);
-        delay(80);
+        delay(60);
         scroll_sprite(0,2,0);  
         scroll_sprite(1,2,0);
         i = i +1;
@@ -334,25 +334,25 @@ void main(void) {
         if(puedomoverme(i-20)&&puedomoverme(i-19) && (i-40!=j) && (i-41!=j) && (i-39!=j) && (i-40!=s) && (i-41!=s) && (i-39!=s)&& (i-40!=r) && (i-41!=r) && (i-39!=r)&& (i-40!=m) && (i-41!=m) && (i-39!=m)){
         set_sprite_tile(0,24);
         set_sprite_tile(1,26); 
-        delay(80);
+        delay(60);
         scroll_sprite(0,0,-2);  
         scroll_sprite(1,0,-2);
 
         set_sprite_tile(0,12);
         set_sprite_tile(1,14);   
-        delay(80);
+        delay(60);
         scroll_sprite(0,0,-2);  
         scroll_sprite(1,0,-2);
 
         set_sprite_tile(0,40);
         set_sprite_tile(1,42);   
-        delay(80);
+        delay(60);
         scroll_sprite(0,0,-2);  
         scroll_sprite(1,0,-2);
 
         set_sprite_tile(0,12);
         set_sprite_tile(1,14);   
-        delay(80);
+        delay(60);
         scroll_sprite(0,0,-2);  
         scroll_sprite(1,0,-2);
         i = i-20;
@@ -366,25 +366,25 @@ void main(void) {
         if(puedomoverme(i-1)&&puedomoverme(i+19) && (i-2!=j) && (i-22!=j) && (i+18!=j)&& (i-2!=s) && (i-22!=s) && (i+18!=s)&& (i-2!=r) && (i-22!=r) && (i+18!=r)&& (i-2!=m) && (i-22!=m) && (i+18!=m)){
         set_sprite_tile(0,28);
         set_sprite_tile(1,30); 
-        delay(80); 
+        delay(60);
         scroll_sprite(0,-2,0);  
         scroll_sprite(1,-2,0);
 
         set_sprite_tile(0,8);
         set_sprite_tile(1,10); 
-        delay(80); 
+        delay(60);
         scroll_sprite(0,-2,0);  
         scroll_sprite(1,-2,0);
 
         set_sprite_tile(0,44);
         set_sprite_tile(1,46); 
-        delay(80); 
+        delay(60); 
         scroll_sprite(0,-2,0);  
         scroll_sprite(1,-2,0);
 
         set_sprite_tile(0,8);
         set_sprite_tile(1,10); 
-        delay(80); 
+        delay(60);
         scroll_sprite(0,-2,0);  
         scroll_sprite(1,-2,0);
         i = i -1;
@@ -398,25 +398,25 @@ void main(void) {
         if(puedomoverme(i+40)&&puedomoverme(i+41) && (i+41!=j) && (i+40!=j) && (i+39!=j)&&(i+41!=s) && (i+40!=s) && (i+39!=s)&&(i+41!=r) && (i+40!=r) && (i+39!=r)&&(i+41!=m) && (i+40!=m) && (i+39!=m)){
         set_sprite_tile(0,16);
         set_sprite_tile(1,18);
-        delay(80);
+        delay(60);
         scroll_sprite(0,0,2);  
         scroll_sprite(1,0,2);
         
         set_sprite_tile(0,0);
         set_sprite_tile(1,2);
-        delay(80);   
+        delay(60);  
         scroll_sprite(0,0,2);  
         scroll_sprite(1,0,2);
 
         set_sprite_tile(0,32);
         set_sprite_tile(1,34);
-        delay(80);   
+        delay(60);  
         scroll_sprite(0,0,2);  
         scroll_sprite(1,0,2);   
 
         set_sprite_tile(0,0);
         set_sprite_tile(1,2);
-        delay(40);   
+        delay(60); 
         scroll_sprite(0,0,2);  
         scroll_sprite(1,0,2);
         i = i + 20;
