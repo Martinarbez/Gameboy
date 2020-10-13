@@ -18,6 +18,12 @@
 #include "windows.c"
 #include "startwindows.c"
 
+///Agregados para musica
+#include "gbt_player.h"
+
+extern const unsigned char * song_Data[];
+///
+
 const unsigned int blankmap[1]= {0x00};
 
 
@@ -129,6 +135,16 @@ void contadorTiempo(void){
 
 void main(void) {
 
+    //Probamos agregando lo del vieja para la musica
+    disable_interrupts();
+
+    gbt_play(song_Data, 2, 7);
+    gbt_loop(1);
+
+    set_interrupts(VBL_IFLAG);
+    enable_interrupts();
+    ///
+
     // Cambio registros para activar sonido
     NR52_REG = 0x80; 
     NR50_REG = 0x77; 
@@ -213,6 +229,10 @@ void main(void) {
 
     while (1)
     {
+      //Linea para musica
+      wait_vbl_done();
+      //
+
       tiempo2 = time(NULL);
       diff = tiempo2-tiempo1;
       if (diff > 0.1)
@@ -424,9 +444,9 @@ void main(void) {
         }
       break;
       }
-      
-    
-      
+    //Linea para musica  
+    gbt_update();
+    //
     }
     
 
