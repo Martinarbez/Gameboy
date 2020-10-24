@@ -18,11 +18,6 @@
 #include "windows.c"
 #include "startwindows.c"
 
-///Agregados para musica
-#include "gbt_player.h"
-
-extern const unsigned char * song_Data[];
-///
 
 const unsigned int blankmap[1]= {0x00};
 
@@ -123,28 +118,44 @@ void contadorPera(void){
     }
 
 void contadorTiempo(void){
-     if(windows[39]==0x0B){
-          windows[39]=0x02;
-          windows[38]=windows[38]+0x01;
+     if(windows[39]==0x02){
+          windows[39]=0x0B;
+          windows[38]=windows[38]-0x01;
         }
-        else if (windows[39]!=0x0B) {
-        windows[39]=windows[39] + 0x01;
+        else if (windows[39]!=0x02) {
+        windows[39]=windows[39] - 0x01;
         }
         set_win_tiles(0,0,20,2,windows);
     }
 
+
+void GanastePerdiste (void){
+    if (windows[39]==0x02 && windows[38]==0x02){
+      if(windows[28]>=0x08 && windows[8]>=0x08 && windows[23]>=0x08 && windows[3]>=0x08){
+        windows[11]=0x12;
+        windows[12]=0x0C;
+        windows[13]=0x19;
+        windows[14]=0x0C;
+        windows[15]=0x1E; 
+        windows[16]=0x1F;
+        windows[17]=0x10;
+      } else if (windows[28]<=0x07 || windows[8]<=0x07 || windows[23]<=0x07 || windows[3]<=0x07){
+        windows[11]=0x1B;
+        windows[12]=0x10;
+        windows[13]=0x1D;
+        windows[14]=0x0F;
+        windows[15]=0x14;
+        windows[16]=0x1E;
+        windows[17]=0x1F;
+        windows[18]=0x10;
+      }
+      set_win_tiles(0,0,20,2,windows);
+    }
+}
+
 void main(void) {
 
-    //Probamos agregando lo del vieja para la musica
-    disable_interrupts();
-
-    gbt_play(song_Data, 2, 7);
-    gbt_loop(1);
-
-    set_interrupts(VBL_IFLAG);
-    enable_interrupts();
-    ///
-
+    
     // Cambio registros para activar sonido
     NR52_REG = 0x80; 
     NR50_REG = 0x77; 
@@ -229,9 +240,7 @@ void main(void) {
 
     while (1)
     {
-      //Linea para musica
-      wait_vbl_done();
-      //
+      
 
       tiempo2 = time(NULL);
       diff = tiempo2-tiempo1;
@@ -444,9 +453,13 @@ void main(void) {
         }
       break;
       }
-    //Linea para musica  
-    gbt_update();
-    //
+    GanastePerdiste();
+    if (windows[11]==0x12 || windows[11]==0x1B){
+      break;
+    }
+    
+    
+      
     }
     
 
