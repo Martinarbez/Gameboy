@@ -17,10 +17,13 @@
 #include "fruta.c"
 #include "windows.c"
 #include "startwindows.c"
+#include "pantallanivel.c"
 
 
 const unsigned int blankmap[1]= {0x00};
 
+unsigned int seis = {0x07};
+unsigned int cinco = {0x07};
 
 bool puedomoverme (int i){
   bool result = (backmap[i-1] == blankmap[0]);
@@ -74,45 +77,29 @@ bool puedomoverme (int i){
  
     
     void contadorUvas(void){
-    if(windows[3]==0x0B){
-          windows[3]=0x02;
-          windows[2]=windows[2]+0x01;
-        }
-        else if (windows[3]!=0x0B) {
-        windows[3]=windows[3] + 0x01;
+    if(windows[3]!=0x02){
+          windows[3]=windows[3]-0x01;
         }
         set_win_tiles(0,0,20,2,windows);
     }
          
     void contadorLimon(void){
-     if(windows[23]==0x0B){
-          windows[23]=0x02;
-          windows[22]=windows[22]+0x01;
-        }
-        else if (windows[23]!=0x0B) {
-        windows[23]=windows[23] + 0x01;
+     if(windows[23]!=0x02){
+          windows[23]=windows[23]-0x01;
         }
         set_win_tiles(0,0,20,2,windows);
     }
 
     void contadorKiwi(void){
-     if(windows[8]==0x0B){
-          windows[8]=0x02;
-          windows[7]=windows[7]+0x01;
+     if(windows[8]!=0x02){
+          windows[8]=windows[8]-0x01;
         }
-        else if (windows[8]!=0x0B) {
-        windows[8]=windows[8] + 0x01;
-        }
-        set_win_tiles(0,0,20,2,windows);
+      set_win_tiles(0,0,20,2,windows);
     }
 
 void contadorPera(void){
-     if(windows[28]==0x0B){
-          windows[28]=0x02;
-          windows[27]=windows[27]+0x01;
-        }
-        else if (windows[28]!=0x0B) {
-        windows[28]=windows[28] + 0x01;
+     if(windows[28]!=0x02){
+          windows[28]=windows[28]-0x01;
         }
         set_win_tiles(0,0,20,2,windows);
     }
@@ -131,7 +118,7 @@ void contadorTiempo(void){
 
 void GanastePerdiste (void){
     if (windows[39]==0x02 && windows[38]==0x02){
-      if(windows[28]>=0x08 && windows[8]>=0x08 && windows[23]>=0x08 && windows[3]>=0x08){
+      if(windows[28]==0x02 && windows[8]==0x02 && windows[23]==0x02 && windows[3]==0x02){
         windows[11]=0x12;
         windows[12]=0x0C;
         windows[13]=0x19;
@@ -139,7 +126,7 @@ void GanastePerdiste (void){
         windows[15]=0x1E; 
         windows[16]=0x1F;
         windows[17]=0x10;
-      } else if (windows[28]<=0x07 || windows[8]<=0x07 || windows[23]<=0x07 || windows[3]<=0x07){
+      } else if (windows[28]!=0x02 || windows[8]!=0x02 || windows[23]!=0x02 || windows[3]!=0x02){
         windows[11]=0x1B;
         windows[12]=0x10;
         windows[13]=0x1D;
@@ -186,6 +173,13 @@ void main(void) {
     int l = DIV_REG;
     initarand(l);
     
+    set_win_tiles(0,0,20,18,pantallanivel);
+    move_win(7,0);
+    SHOW_WIN;
+    DISPLAY_ON;
+    delay(2000);
+    waitpad(0xFF);
+    waitpadup();
     
     
     
@@ -271,55 +265,10 @@ void main(void) {
       contadorPera();
       //delay(300);
       
+      break;
       
-      case J_A:  
+      case J_A:
       
-      if(i+2==j || i-40==j || i-2==j || i+40==j) {
-        j = randomFruta(i,1);
-        contadorUvas();
-        NR10_REG = 0x16;
-        NR11_REG = 0x40;
-        NR12_REG = 0x73;
-        NR13_REG = 0x04;
-        NR14_REG = 0xC7; 
-        //delay(400);        
-      }
-
-
-      if(i+2==s || i-40==s || i-2==s || i+40==s) {
-        s = randomFruta(i,2);
-        contadorLimon();
-        NR10_REG = 0x16;
-        NR11_REG = 0x40;
-        NR12_REG = 0x73;
-        NR13_REG = 0x01;
-        NR14_REG = 0xC6; 
-        //delay(400);
-        
-      }
-      if(i+2==r || i-40==r || i-2==r || i+40==r) {
-        r = randomFruta(i,3);
-        contadorKiwi();
-        NR10_REG = 0x16;
-        NR11_REG = 0x40;
-        NR12_REG = 0x73;
-        NR13_REG = 0x01;
-        NR14_REG = 0xC6; 
-        //delay(400);
-        
-      }
-
-      if(i+2==m || i-40==m || i-2==m || i+40==m) {
-        m = randomFruta(i,4);
-        contadorPera();
-        NR10_REG = 0x16;
-        NR11_REG = 0x40;
-        NR12_REG = 0x73;
-        NR13_REG = 0x04;
-        NR14_REG = 0xC7; 
-        //delay(400);        
-      }
-
       break;
 
       case J_RIGHT:
@@ -453,14 +402,186 @@ void main(void) {
         }
       break;
       }
+
+    if(i+2==j || i-40==j || i-2==j || i+40==j) {
+        j = randomFruta(i,1);
+        contadorUvas();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x04;
+        NR14_REG = 0xC7; 
+        //delay(400);        
+      }
+
+
+      if(i+2==s || i-40==s || i-2==s || i+40==s) {
+        s = randomFruta(i,2);
+        contadorLimon();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x01;
+        NR14_REG = 0xC6; 
+        //delay(400);
+        
+      }
+      if(i+2==r || i-40==r || i-2==r || i+40==r) {
+        r = randomFruta(i,3);
+        contadorKiwi();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x01;
+        NR14_REG = 0xC6; 
+        //delay(400);
+        
+      }
+
+      if(i+2==m || i-40==m || i-2==m || i+40==m) {
+        m = randomFruta(i,4);
+        contadorPera();
+        NR10_REG = 0x16;
+        NR11_REG = 0x40;
+        NR12_REG = 0x73;
+        NR13_REG = 0x04;
+        NR14_REG = 0xC7; 
+        //delay(400);        
+      }
+  
+
     GanastePerdiste();
-    if (windows[11]==0x12 || windows[11]==0x1B){
-      break;
-    }
-    
+    if (windows[11]==0x12 ){
+      delay(2000);
+      //cambiar nivel
+      pantallanivel[71]=pantallanivel[71]+0x01;
+      set_win_tiles(0,0,20,18,pantallanivel);
+      move_win(7,0);
+      SHOW_WIN;
+      DISPLAY_ON;
+
+      seis = seis + 0x01;
+
+      move_sprite(0,0,0);
+      move_sprite(1,0,0);
+      move_sprite(2,0,0);
+      move_sprite(3,0,0);
+      move_sprite(4,0,0);
+      move_sprite(5,0,0);
+      move_sprite(6,0,0);
+      move_sprite(7,0,0);
+      move_sprite(8,0,0);
+      move_sprite(9,0,0);
     
       
+      delay(2000);
+
+      windows[11]=0x00;
+      windows[12]=0x00;
+      windows[13]=0x00;
+      windows[14]=0x00;
+      windows[15]=0x00;
+      windows[16]=0x00;
+      windows[17]=0x00;
+      //cargar todo
+      windows[3] = seis;
+      windows[8] = seis;
+      windows[23] = seis;
+      windows[28] = seis;
+      windows[38] = 0x02;
+      windows[38] = 0x05;
+      windows[39] = 0x02;
+      
+      j = randomFruta(i,1);    
+      s = randomFruta(i,2);
+      r = randomFruta(i,3);    
+      m = randomFruta(i,4);
+      
+      
+      move_sprite(0,16,32);
+      move_sprite(1,24,32);
+      i = 42;
+      SHOW_SPRITES;
+
+      set_win_tiles(0,0,20,2,windows);
+      move_win(8,128);
+      
+      
+      set_bkg_data(38,10,back);  //tile, cantidad de tildes,donde estan//
+      set_bkg_tiles(0,0,20,18,backmap);
+
+      SHOW_WIN;
+      SHOW_SPRITES;
+      SHOW_BKG;
+      DISPLAY_ON;
+      
+
     }
+
+    if(windows[11]==0x1B){
+        delay(2000);
+      //cambiar nivel
+      pantallanivel[71]= 0x03;
+      set_win_tiles(0,0,20,18,pantallanivel);
+      move_win(7,0);
+      
+      move_sprite(0,0,0);
+      move_sprite(1,0,0);
+      move_sprite(2,0,0);
+      move_sprite(3,0,0);
+      move_sprite(4,0,0);
+      move_sprite(5,0,0);
+      move_sprite(6,0,0);
+      move_sprite(7,0,0);
+      move_sprite(8,0,0);
+      move_sprite(9,0,0);
+    
+      
+      delay(2000);
+
+      windows[11]=0x00;
+      windows[12]=0x00;
+      windows[13]=0x00;
+      windows[14]=0x00;
+      windows[15]=0x00;
+      windows[16]=0x00;
+      windows[17]=0x00;
+      windows[18]=0x00;
+      //cargar todo
+      windows[3] = cinco;
+      windows[8] = cinco;
+      windows[23] = cinco;
+      windows[28] = cinco;
+      windows[38] = 0x02;
+      windows[38] = 0x05;
+      windows[39] = 0x02;
+      
+      j = randomFruta(i,1);    
+      s = randomFruta(i,2);
+      r = randomFruta(i,3);    
+      m = randomFruta(i,4);
+      
+      move_sprite(0,16,32);
+      move_sprite(1,24,32);
+      i = 42;
+     
+
+      set_win_tiles(0,0,20,2,windows);
+      move_win(8,128);
+      
+      set_bkg_data(38,10,back);  
+      set_bkg_tiles(0,0,20,18,backmap);
+
+      seis = 0x07;
+      
+    }
+
+
+
+
+    }
+      
+    
     
 
 }
