@@ -54,6 +54,139 @@ bool puedomoverme (int i){
     movegamecharacter(elle.x, elle.y);
     }
   
+  int playermov (int i, int j,int s,int r,int m){
+     if (joypad() & J_RIGHT){
+        
+        set_sprite_tile(0,4);
+        set_sprite_tile(1,6);
+              
+        if(puedomoverme(i+2) && puedomoverme(i+22) && ( (i+2)!=j && (i+22)!=j && (i-18)!=j)  && ( (i+2)!=s && (i+22)!=s && (i-18)!=s) && ( (i+2)!=r && (i+22)!=r && (i-18)!=r)&& ( (i+2)!=m && (i+22)!=m && (i-18)!=m)){
+        set_sprite_tile(0,20);
+        set_sprite_tile(1,22); 
+        delay(60);
+        scroll_sprite(0,2,0);  
+        scroll_sprite(1,2,0);
+
+        set_sprite_tile(0,4);
+        set_sprite_tile(1,6);
+        delay(60);
+        scroll_sprite(0,2,0);  
+        scroll_sprite(1,2,0);
+
+        set_sprite_tile(0,36);
+        set_sprite_tile(1,38); 
+        delay(60); 
+        scroll_sprite(0,2,0);  
+        scroll_sprite(1,2,0);
+
+        set_sprite_tile(0,4);
+        set_sprite_tile(1,6);
+        delay(60);
+        scroll_sprite(0,2,0);  
+        scroll_sprite(1,2,0);
+        i = i +1;
+        }             
+      }
+      
+      if (joypad() & J_UP){
+        set_sprite_tile(0,12);
+        set_sprite_tile(1,14);
+        
+        if(puedomoverme(i-20)&&puedomoverme(i-19) && (i-40!=j) && (i-41!=j) && (i-39!=j) && (i-40!=s) && (i-41!=s) && (i-39!=s)&& (i-40!=r) && (i-41!=r) && (i-39!=r)&& (i-40!=m) && (i-41!=m) && (i-39!=m)){
+        set_sprite_tile(0,24);
+        set_sprite_tile(1,26); 
+        delay(60);
+        scroll_sprite(0,0,-2);  
+        scroll_sprite(1,0,-2);
+
+        set_sprite_tile(0,12);
+        set_sprite_tile(1,14);   
+        delay(60);
+        scroll_sprite(0,0,-2);  
+        scroll_sprite(1,0,-2);
+
+        set_sprite_tile(0,40);
+        set_sprite_tile(1,42);   
+        delay(60);
+        scroll_sprite(0,0,-2);  
+        scroll_sprite(1,0,-2);
+
+        set_sprite_tile(0,12);
+        set_sprite_tile(1,14);   
+        delay(60);
+        scroll_sprite(0,0,-2);  
+        scroll_sprite(1,0,-2);
+        i = i-20;
+        }
+      }
+      
+      if (joypad() & J_LEFT){
+        set_sprite_tile(0,8);
+        set_sprite_tile(1,10);
+        
+        if(puedomoverme(i-1)&&puedomoverme(i+19) && (i-2!=j) && (i-22!=j) && (i+18!=j)&& (i-2!=s) && (i-22!=s) && (i+18!=s)&& (i-2!=r) && (i-22!=r) && (i+18!=r)&& (i-2!=m) && (i-22!=m) && (i+18!=m)){
+        set_sprite_tile(0,28);
+        set_sprite_tile(1,30); 
+        delay(60);
+        scroll_sprite(0,-2,0);  
+        scroll_sprite(1,-2,0);
+
+        set_sprite_tile(0,8);
+        set_sprite_tile(1,10); 
+        delay(60);
+        scroll_sprite(0,-2,0);  
+        scroll_sprite(1,-2,0);
+
+        set_sprite_tile(0,44);
+        set_sprite_tile(1,46); 
+        delay(60); 
+        scroll_sprite(0,-2,0);  
+        scroll_sprite(1,-2,0);
+
+        set_sprite_tile(0,8);
+        set_sprite_tile(1,10); 
+        delay(60);
+        scroll_sprite(0,-2,0);  
+        scroll_sprite(1,-2,0);
+        i = i -1;
+        }
+      }
+
+      if (joypad() & J_DOWN){
+        set_sprite_tile(0,0);
+        set_sprite_tile(1,2);
+        
+        if(puedomoverme(i+40)&&puedomoverme(i+41) && (i+41!=j) && (i+40!=j) && (i+39!=j)&&(i+41!=s) && (i+40!=s) && (i+39!=s)&&(i+41!=r) && (i+40!=r) && (i+39!=r)&&(i+41!=m) && (i+40!=m) && (i+39!=m)){
+        set_sprite_tile(0,16);
+        set_sprite_tile(1,18);
+        delay(60);
+        scroll_sprite(0,0,2);  
+        scroll_sprite(1,0,2);
+        
+        set_sprite_tile(0,0);
+        set_sprite_tile(1,2);
+        delay(60);  
+        scroll_sprite(0,0,2);  
+        scroll_sprite(1,0,2);
+
+        set_sprite_tile(0,32);
+        set_sprite_tile(1,34);
+        delay(60);  
+        scroll_sprite(0,0,2);  
+        scroll_sprite(1,0,2);   
+
+        set_sprite_tile(0,0);
+        set_sprite_tile(1,2);
+        delay(60); 
+        scroll_sprite(0,0,2);  
+        scroll_sprite(1,0,2);
+        i = i + 20;
+        
+        }
+      
+      }
+      return i;
+  }
     
     /***********************************
      * i el personaje
@@ -116,6 +249,7 @@ void contadorTiempo(void){
     }
 
 
+
 void GanastePerdiste (void){
     if (windows[39]==0x02 && windows[38]==0x02){
       if(windows[28]==0x02 && windows[8]==0x02 && windows[23]==0x02 && windows[3]==0x02){
@@ -175,8 +309,7 @@ void main(void) {
     
     set_win_tiles(0,0,20,18,pantallanivel);
     move_win(7,0);
-    SHOW_WIN;
-    DISPLAY_ON;
+   
     delay(2000);
     waitpad(0xFF);
     waitpadup();
@@ -193,9 +326,7 @@ void main(void) {
     setupChar();
 
     unsigned int i = 42;
-
-
-    
+  
     set_sprite_data(48,16,fruta);
     set_sprite_tile(2,48);
     set_sprite_tile(3,50);
@@ -205,14 +336,7 @@ void main(void) {
     set_sprite_tile(7,58);
     set_sprite_tile(8,60);
     set_sprite_tile(9,62);
-    move_sprite(2,0,0);
-    move_sprite(3,0,0);
-    move_sprite(4,0,0);
-    move_sprite(5,0,0);
-    move_sprite(6,0,0);
-    move_sprite(7,0,0);
-    move_sprite(8,0,0);
-    move_sprite(9,0,0);
+    
     unsigned int j = randomFruta(i,1);    
     unsigned int s = randomFruta(i,2);
     unsigned int r = randomFruta(i,3);    
@@ -244,164 +368,25 @@ void main(void) {
         tiempo1 = time(NULL);
       }
 
-      switch (joypad())
-      {
-          
-      case J_B:
-       
-      j = randomFruta(i,1);
-      contadorUvas();
-      //delay(300);
+      i = playermov(i,j,s,r,m);
 
-      s = randomFruta(i,2);
-      contadorLimon();
-      //delay(300);
-
-      r = randomFruta(i,3);
-      contadorKiwi();
-      //delay(300);
-
-      m = randomFruta(i,4);
-      contadorPera();
-      //delay(300);
-      
-      break;
-      
-      case J_A:
-      
-      break;
-
-      case J_RIGHT:
+      if (joypad() & J_SELECT){
+                
+        j = randomFruta(i,1);
+        contadorUvas();
         
-        set_sprite_tile(0,4);
-        set_sprite_tile(1,6);
-       
-       
-        if(puedomoverme(i+2) && puedomoverme(i+22) && ( (i+2)!=j && (i+22)!=j && (i-18)!=j)  && ( (i+2)!=s && (i+22)!=s && (i-18)!=s) && ( (i+2)!=r && (i+22)!=r && (i-18)!=r)&& ( (i+2)!=m && (i+22)!=m && (i-18)!=m)){
-        set_sprite_tile(0,20);
-        set_sprite_tile(1,22); 
-        delay(60);
-        scroll_sprite(0,2,0);  
-        scroll_sprite(1,2,0);
-
-        set_sprite_tile(0,4);
-        set_sprite_tile(1,6);
-        delay(60);
-        scroll_sprite(0,2,0);  
-        scroll_sprite(1,2,0);
-
-        set_sprite_tile(0,36);
-        set_sprite_tile(1,38); 
-        delay(60); 
-        scroll_sprite(0,2,0);  
-        scroll_sprite(1,2,0);
-
-        set_sprite_tile(0,4);
-        set_sprite_tile(1,6);
-        delay(60);
-        scroll_sprite(0,2,0);  
-        scroll_sprite(1,2,0);
-        i = i +1;
-        }             
-      break;
-      
-      case J_UP:
-        set_sprite_tile(0,12);
-        set_sprite_tile(1,14);
+        s = randomFruta(i,2);
+        contadorLimon();
         
-        if(puedomoverme(i-20)&&puedomoverme(i-19) && (i-40!=j) && (i-41!=j) && (i-39!=j) && (i-40!=s) && (i-41!=s) && (i-39!=s)&& (i-40!=r) && (i-41!=r) && (i-39!=r)&& (i-40!=m) && (i-41!=m) && (i-39!=m)){
-        set_sprite_tile(0,24);
-        set_sprite_tile(1,26); 
-        delay(60);
-        scroll_sprite(0,0,-2);  
-        scroll_sprite(1,0,-2);
-
-        set_sprite_tile(0,12);
-        set_sprite_tile(1,14);   
-        delay(60);
-        scroll_sprite(0,0,-2);  
-        scroll_sprite(1,0,-2);
-
-        set_sprite_tile(0,40);
-        set_sprite_tile(1,42);   
-        delay(60);
-        scroll_sprite(0,0,-2);  
-        scroll_sprite(1,0,-2);
-
-        set_sprite_tile(0,12);
-        set_sprite_tile(1,14);   
-        delay(60);
-        scroll_sprite(0,0,-2);  
-        scroll_sprite(1,0,-2);
-        i = i-20;
-        }
-      break;
-      
-      case J_LEFT:
-        set_sprite_tile(0,8);
-        set_sprite_tile(1,10);
+        r = randomFruta(i,3);
+        contadorKiwi();
         
-        if(puedomoverme(i-1)&&puedomoverme(i+19) && (i-2!=j) && (i-22!=j) && (i+18!=j)&& (i-2!=s) && (i-22!=s) && (i+18!=s)&& (i-2!=r) && (i-22!=r) && (i+18!=r)&& (i-2!=m) && (i-22!=m) && (i+18!=m)){
-        set_sprite_tile(0,28);
-        set_sprite_tile(1,30); 
-        delay(60);
-        scroll_sprite(0,-2,0);  
-        scroll_sprite(1,-2,0);
-
-        set_sprite_tile(0,8);
-        set_sprite_tile(1,10); 
-        delay(60);
-        scroll_sprite(0,-2,0);  
-        scroll_sprite(1,-2,0);
-
-        set_sprite_tile(0,44);
-        set_sprite_tile(1,46); 
-        delay(60); 
-        scroll_sprite(0,-2,0);  
-        scroll_sprite(1,-2,0);
-
-        set_sprite_tile(0,8);
-        set_sprite_tile(1,10); 
-        delay(60);
-        scroll_sprite(0,-2,0);  
-        scroll_sprite(1,-2,0);
-        i = i -1;
-        }
-      break;
-
-      case J_DOWN:
-        set_sprite_tile(0,0);
-        set_sprite_tile(1,2);
+        m = randomFruta(i,4);
+        contadorPera();
         
-        if(puedomoverme(i+40)&&puedomoverme(i+41) && (i+41!=j) && (i+40!=j) && (i+39!=j)&&(i+41!=s) && (i+40!=s) && (i+39!=s)&&(i+41!=r) && (i+40!=r) && (i+39!=r)&&(i+41!=m) && (i+40!=m) && (i+39!=m)){
-        set_sprite_tile(0,16);
-        set_sprite_tile(1,18);
-        delay(60);
-        scroll_sprite(0,0,2);  
-        scroll_sprite(1,0,2);
-        
-        set_sprite_tile(0,0);
-        set_sprite_tile(1,2);
-        delay(60);  
-        scroll_sprite(0,0,2);  
-        scroll_sprite(1,0,2);
-
-        set_sprite_tile(0,32);
-        set_sprite_tile(1,34);
-        delay(60);  
-        scroll_sprite(0,0,2);  
-        scroll_sprite(1,0,2);   
-
-        set_sprite_tile(0,0);
-        set_sprite_tile(1,2);
-        delay(60); 
-        scroll_sprite(0,0,2);  
-        scroll_sprite(1,0,2);
-        i = i + 20;
-        
-        }
-      break;
       }
+      
+     
 
     if(i+2==j || i-40==j || i-2==j || i+40==j) {
         j = randomFruta(i,1);
@@ -423,9 +408,8 @@ void main(void) {
         NR12_REG = 0x73;
         NR13_REG = 0x01;
         NR14_REG = 0xC6; 
-        //delay(400);
-        
       }
+
       if(i+2==r || i-40==r || i-2==r || i+40==r) {
         r = randomFruta(i,3);
         contadorKiwi();
@@ -434,8 +418,6 @@ void main(void) {
         NR12_REG = 0x73;
         NR13_REG = 0x01;
         NR14_REG = 0xC6; 
-        //delay(400);
-        
       }
 
       if(i+2==m || i-40==m || i-2==m || i+40==m) {
@@ -445,21 +427,19 @@ void main(void) {
         NR11_REG = 0x40;
         NR12_REG = 0x73;
         NR13_REG = 0x04;
-        NR14_REG = 0xC7; 
-        //delay(400);        
+        NR14_REG = 0xC7;      
       }
   
 
     GanastePerdiste();
     if (windows[11]==0x12 ){
       delay(2000);
+
       //cambiar nivel
       pantallanivel[71]=pantallanivel[71]+0x01;
       set_win_tiles(0,0,20,18,pantallanivel);
       move_win(7,0);
-      SHOW_WIN;
-      DISPLAY_ON;
-
+     
       seis = seis + 0x01;
 
       move_sprite(0,0,0);
@@ -501,21 +481,12 @@ void main(void) {
       move_sprite(0,16,32);
       move_sprite(1,24,32);
       i = 42;
-      SHOW_SPRITES;
-
+    
       set_win_tiles(0,0,20,2,windows);
       move_win(8,128);
-      
-      
+            
       set_bkg_data(38,10,back);  //tile, cantidad de tildes,donde estan//
-      set_bkg_tiles(0,0,20,18,backmap);
-
-      SHOW_WIN;
-      SHOW_SPRITES;
-      SHOW_BKG;
-      DISPLAY_ON;
-      
-
+      set_bkg_tiles(0,0,20,18,backmap);        
     }
 
     if(windows[11]==0x1B){
